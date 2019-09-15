@@ -1,0 +1,40 @@
+import nltk
+from nltk.corpus import inaugural
+from nltk.tokenize import PunktSentenceTokenizer
+s=input("Enter year of speech (from 1789-2009 (4 year step): ")
+a=(int(s)-1789)/4
+train=inaugural.raw("1789-Washington.txt")
+test=inaugural.raw(inaugural.fileids()[int(a)-1])
+tokenizer=PunktSentenceTokenizer(train)
+token=tokenizer.tokenize(test)
+out=open('C:\\Users\\91998\\Desktop\\harsh1\\harsh.txt','w')
+def func():
+	count=0
+	count1=0
+	count2=0
+	for i in token:
+		speech_words=nltk.word_tokenize(i)
+		tagged=nltk.pos_tag(speech_words)
+		print(tagged)
+		out.write("Tagged Speech: "+str(tagged)+'\n')
+	for (word,tag) in tagged:
+		if(tag=='NNP' or tag=="NNPS" or tag=="NNS" or tag=="NN"):
+			count=count+1;
+		if(tag=="RB" or tag=="RBR" or tag=="RBS"):
+			count1=count1+1;
+		if(tag=="VB" or tag=="VBD" or tag=="VBG" or tag=="VBN" or tag=="VBP" or tag=="VBZ"):
+			count2=count2+1;
+	print("Nouns used in speech :")
+	print(count)
+	out.write("Nouns used in speech :"+str(count)+'\n')
+	print("Adverbs used in speech :")
+	print(count1)
+	out.write("Adverbs used in speech :"+str(count1)+'\n')
+	print("Verbs used in speech :")
+	print(count2)
+	out.write("Verbs used in speech :"+str(count2)+'\n')
+	exp=r"""Important Terms: {<	RB.?>*<VB.?>*<NNP>+<NN>*<NNPS>*<NNS>*}"""
+	parser=nltk.RegexpParser(exp)
+	final=parser.parse(tagged)
+	final.draw()
+func()

@@ -1,0 +1,7 @@
+in this project we have used the natural language tool kit(nltk) to do a series of analysis on the inaugural speech of the us presidents 
+working:
+1.First the user has to input the year of speech he/she has to analyse
+2.the system will take that speech from the inaugural speech corpus and do certain pre processing steps on it such as tokenization using Punktsentence tokenizer
+3.then the system uses the pos_tag library of nltk to tag the part of speech with each word
+4.then using the result of the above process we find the number of nouns adverbs and verbs from the tagged list and print them
+5.then we find the important terms from the selected speech and make tree out of it using .draw() function
